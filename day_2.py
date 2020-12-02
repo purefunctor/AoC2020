@@ -18,12 +18,20 @@ def parse_inputs():
     return lines
 
 
-def solution():
+def solution_1():
     return sum([
         l <= Counter(s)[c] <= r
         for (l, r), c, s in parse_inputs()
     ])
 
 
+def solution_2():
+    return sum([
+        (s[l - 1] == c) ^ (s[r - 1] == c)
+        for (l, r), c, s in parse_inputs()
+    ])
+
+
 if __name__ == "__main__":
-    print(solution())
+    print(solution_1())
+    print(solution_2())
