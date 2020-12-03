@@ -1,10 +1,6 @@
 from itertools import count
 
 
-DELTA_X = 3
-DELTA_Y = 1
-
-
 def parse_inputs():
     with open("./day_3.txt", "r") as f:
         lines = list(map(str.strip, f.readlines()))
@@ -18,9 +14,12 @@ def parse_inputs():
 def solution_1():
     max_x, max_y, lines = parse_inputs()
 
+    dx = 3
+    dy = 1
+
     coords = zip(
-        (x % max_x for x in count(DELTA_X, DELTA_X)),
-        (range(DELTA_Y, max_y, DELTA_Y))
+        (x % max_x for x in count(dx, dx)),
+        (range(dy, max_y, dy)),
     )
 
     return sum(lines[y][x] == "#" for x, y in coords)
