@@ -23,7 +23,7 @@ def solution_1():
         (range(DELTA_Y, max_y, DELTA_Y))
     )
 
-    print(sum(lines[y][x] == "#" for x, y in coords))
+    return sum(lines[y][x] == "#" for x, y in coords)
 
 
 def solution_2():
@@ -47,9 +47,9 @@ def solution_2():
     for dx, dy in deltas:
         prod *= sum(lines[y][x] == "#" for x, y in create_coords(dx, dy))
 
-    print(prod)
+    return prod
 
 
 if __name__ == "__main__":
-    solution_1()
-    solution_2()
+    print(solution_1())
+    print(solution_2())
