@@ -20,7 +20,7 @@ binaryPartition_ c (l, u)
 binaryPartition :: Partitions -> Bounds -> Bounds
 binaryPartition = foldl1 (flip (.)) . map binaryPartition_
 
-partitionSeats :: [(Partitions, Partitions)] -> [Int]
+partitionSeats :: [(Partitions, Partitions)] -> [SeatNumber]
 partitionSeats = fmap (\(row_part, col_part) -> getRow row_part + getCol col_part)
   where
     getRow row_part = fst (binaryPartition row_part (0, 127)) * 8
