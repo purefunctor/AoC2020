@@ -34,7 +34,7 @@ solution_1 = maximum . partitionSeats
 solution_2 :: [(Partitions, Partitions)] -> SeatNumber
 solution_2 = gapped . sort . partitionSeats
   where
-    gapped (x:y:rest) = if x - y == -2 then (y - x - 1) + x else gapped rest
+    gapped (x:y:rest) = if x - y == -2 then (y - x - 1) + x else gapped (y : rest)
 
 main :: IO ()
 main = do
