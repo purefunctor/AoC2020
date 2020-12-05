@@ -1,5 +1,7 @@
 module Main where
 
+import Data.List (sort)
+
 type Bounds = (Int, Int)
 
 parseInput :: IO [(String, String)]
@@ -15,13 +17,22 @@ binaryPartition_ c (l, u)
 binaryPartition :: String -> Bounds -> Bounds
 binaryPartition = foldl1 (flip (.)) . map binaryPartition_
 
-solution_1 :: [(String, String)] -> Int
-solution_1 lines = maximum $ [getRow rs + getCol cs | (rs, cs) <- lines]
+getSeats :: [(String, String)] -> [Int]
+getSeats lines = [getRow rs + getCol cs | (rs, cs) <- lines]
   where
     getRow rs = fst (binaryPartition rs (0, 127)) * 8
     getCol cs = fst (binaryPartition cs (0, 7))
+
+solution_1 :: [(String, String)] -> Int
+solution_1 = maximum . getSeats
+
+solution_2 :: [(String, String)] -> Int
+solution_2 = gapped . sort . getSeats
+  where
+    gapped (x:y:rest) = if x - y == -2 then (y - x - 1) + x else gapped rest
 
 main :: IO ()
 main = do
   lines <- parseInput
   print . solution_1 $ lines
+  print . solution_2 $ lines
