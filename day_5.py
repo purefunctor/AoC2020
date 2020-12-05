@@ -1,4 +1,5 @@
 from collections import Counter
+from functools import reduce
 from itertools import tee
 from operator import itemgetter
 import re
@@ -26,5 +27,20 @@ def solution_1():
     ])
 
 
+def solution_2():
+    nice = 0
+    for line in parse_inputs():
+        pair, num = Counter(map("".join, zip(line, line[1:]))).most_common(1)[0]
+        if num == 1:
+            continue
+        if len(line) - len(re.sub(pair, "", line)) != 4:
+            continue
+        if not any(x == y for x, y in zip(line, line[2:])):
+            continue
+        nice += 1
+    return nice
+
+
 if __name__ == "__main__":
     print(solution_1())
+    print(solution_2())
