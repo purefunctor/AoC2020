@@ -21,9 +21,7 @@ binaryPartition :: Partitions -> Bounds -> Bounds
 binaryPartition = foldl1 (flip (.)) . map binaryPartition_
 
 partitionSeats :: [(Partitions, Partitions)] -> [Int]
-partitionSeats partitions = [getRow row_part + getCol col_part
-                      | (row_part, col_part) <- partitions
-                      ]
+partitionSeats = fmap (\(row_part, col_part) -> getRow row_part + getCol col_part)
   where
     getRow row_part = fst (binaryPartition row_part (0, 127)) * 8
     getCol col_part = fst (binaryPartition col_part (0, 7))
