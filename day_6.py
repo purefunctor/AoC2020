@@ -7,18 +7,11 @@ def parse_inputs():
 
 
 def solution_1():
-    n = 0
-    for group in parse_inputs():
-        n += len(set("".join(group)))
-    return n
+    return sum(len(set("".join(group))) for group in parse_inputs())
 
 
 def solution_2():
-    n = 0
-    for group in parse_inputs():
-        new_group = list(reduce(lambda x, y: x.intersection(y), map(set, group)))
-        n += len(new_group)
-    return n
+    return sum(len(list(reduce(lambda x, y: x & y, map(set, group)))) for group in parse_inputs())
 
 
 if __name__ == "__main__":
