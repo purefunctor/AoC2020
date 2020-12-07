@@ -30,8 +30,6 @@ class Bag:
 
     def check_for(self, bag: Bag) -> bool:
         for rule in self.rules:
-            if rule.bag == bag:
-                return True
             if rule.check_for(bag):
                 return True
         return False
@@ -53,7 +51,7 @@ class Rule:
     count: int
 
     def check_for(self, bag: Bag) -> bool:
-        return self.bag.check_for(bag)
+        return self.bag == bag or self.bag.check_for(bag)
 
 
 def solution_1():
