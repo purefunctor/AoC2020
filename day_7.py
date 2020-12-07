@@ -59,7 +59,8 @@ class Rule:
     def sum_up(self):
         return self.count + self.count * self.bag.sum_up()
 
-def solution_1():
+
+def solution():
     bag_name = re.compile(r"(\w+ \w+) bags contain")
     bag_rules = re.compile(r"(\d) (\w+ \w+)")
 
@@ -69,24 +70,12 @@ def solution_1():
         bag = Bag(bag_name.match(line).group(1)).add_rules(*rules)
         bags.append(bag)
 
-    return sum(bag.check_for(Bag("shiny gold")) for bag in bags)
+    result =  (sum(bag.check_for(Bag("shiny gold")) for bag in bags), Bag("shiny gold").sum_up())
 
+    Bag.bags.clear()
 
-def solution_2():
-    bag_name = re.compile(r"(\w+ \w+) bags contain")
-    bag_rules = re.compile(r"(\d) (\w+ \w+)")
-
-    bags = []
-    for line in parse_inputs():
-        rules = [Rule(Bag(name), int(count)) for count, name in bag_rules.findall(line)]
-        bag = Bag(bag_name.match(line).group(1)).add_rules(*rules)
-        bags.append(bag)
-
-    return Bag("shiny gold").sum_up()
+    return result
 
 
 if __name__ == "__main__":
-    print(solution_1())
-    Bag.bags.clear()
-    print(solution_2())
-    Bag.bags.clear()
+    print(*solution(), sep="\n")
