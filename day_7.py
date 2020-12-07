@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 import re
-from typing import ClassVar, Dict, List
+from typing import List
 
 
 def parse_inputs():
