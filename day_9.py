@@ -35,6 +35,7 @@ def solution_2():
         if total == invalid:
             return min(queue) + max(queue)
 
+
 if __name__ == "__main__":
     print(solution_1())
     print(solution_2())
