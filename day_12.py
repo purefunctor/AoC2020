@@ -1,3 +1,4 @@
+import math
 import re
 
 
@@ -42,5 +43,36 @@ def solution_1():
     return abs(x) + abs(y)
 
 
+def rotate(x, y, d):
+    r = math.radians(d)
+    c, s = math.cos(r), math.sin(r)
+    return (round(x * c - y * s), round(y * c + x * s))
+
+
+def solution_2():
+    # I'm lazy, probably could've done better
+    sx, sy = 0, 0
+    wx, wy = 10, 1
+    waypoint_deltas = {
+        "N": (0, 1),
+        "S": (0, -1),
+        "E": (1, 0),
+        "W": (-1, 0),
+    }
+    for i, n in parse_inputs():
+        if i in "NEWS":
+            xd, yd = waypoint_deltas[i]
+            wx += xd * int(n)
+            wy += yd * int(n)
+        elif i == "F":
+            sx += int(n) * wx
+            sy += int(n) * wy
+        elif i in "LR":
+            n = int(n) if i == "L" else -int(n)
+            wx, wy = rotate(wx, wy, n)
+    return abs(sx) + abs(sy)
+
+
 if __name__ == "__main__":
     print(solution_1())
+    print(solution_2())
