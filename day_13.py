@@ -17,5 +17,24 @@ def solution_1():
     return mul(*min(zip(ys, zs), key=lambda yz: yz[1]))
 
 
+def solution_2():
+    _, xs = parse_inputs()
+    xs = [(i, x) for i, x in enumerate(xs) if x is not None]
+
+    ys = [x for (_, x) in xs]
+    zs = [-i % y for i, y in xs]
+
+    earliest = 0
+    delta = 1
+
+    for y, z in zip(ys, zs):
+        while earliest % y != z:
+            earliest += delta
+        delta *= y
+
+    return earliest
+
+
 if __name__ == "__main__":
     print(solution_1())
+    print(solution_2())
